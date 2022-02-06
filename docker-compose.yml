@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  web:
+    container_name: "labs_web"
+    build:
+      dockerfile: ./Config/Dockerfile
+      context: ./
+    ports:
+      - "8080:8080"
+      - "80:80"
+      - "443:443"
+    volumes:
+      - "./:/var/www/html"
+    depends_on:
+      - db
+
+  db:
+    container_name: "labs_db"
+    image: mariadb:10.6.4
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_USER: labs
+      MARIADB_PASSWORD: labs
+      MARIADB_ROOT_PASSWORD: labs
+      MARIADB_DATABASE: labs
